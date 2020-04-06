@@ -1,0 +1,13 @@
+<?php
+if(!empty($this->modelData['ajaxgetparam'])){
+    echo '<br>Введите данные для оборудования';
+    echo $this->modelData['ajaxgetparam'];
+    echo '<br>';
+    echo '<br><button class="btn btn-primary" type="submit" name="addoborud" value="1">Сохранить</button>';
+}
+else{
+    echo '<br>';
+	echo 'Добавьте параметры для данного оборудования!!!';
+}
+
+?>

@@ -1,0 +1,369 @@
+<?php
+
+//echo 'INDEXPHTML';
+
+//echo __DIR__;
+//print_r($_SERVER);
+//require_once($_SERVER['DOCUMENT_ROOT'] . '..\application\Views\Index\Index.css');
+//include(__DIR__ . '\Index.css');
+
+
+
+ob_start();
+
+echo '<style type="text/css">';
+include(__DIR__ . '\Oborud.css');
+	
+echo '</style>';
+
+echo '<script type="text/javascript">';
+include (__DIR__ . '\Oborud.js');
+echo '</script>';
+
+
+
+
+
+	//echo '<link rel="stylesheet" href="/main/bootstrap/bootstrap.css"  crossorigin="anonymous">';
+    echo '<link rel="stylesheet" href="/main/bootstrap4.3/css/bootstrap.css"  crossorigin="anonymous">';
+
+	//echo '<script src="/main/bootstrap/bootstrap.js"  crossorigin="anonymous"></script>';
+    echo '<script src="/main/bootstrap4.3/js/bootstrap.js"  crossorigin="anonymous"></script>';
+ 	
+	echo '<script src="/main/bootstrap/jquery-3.3.1.slim.min.js"  crossorigin="anonymous"></script>';
+    //echo '<script src="/main/bootstrap/bootstrap.bundle.js"  crossorigin="anonymous"></script>';
+    echo '<script src="/main/bootstrap4.3/js/bootstrap.bundle.js"  crossorigin="anonymous"></script>';
+
+	
+	///////
+	//echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">';
+
+//echo '<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>';
+//echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>';
+//echo '<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>';
+
+	
+	
+	
+	
+
+$css_js = ob_get_contents();
+
+
+ob_end_clean();
+
+
+
+//<link rel = "stylesheet" href="application/Views/Index/Index.css">
+//<link rel = "stylesheet" href="/Index.css">
+//<script type="text/javascript" src = "/application/Views/Index/Index.js"></script>
+
+
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<?php echo $css_js; ?>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link href="/main/css/menu_main.css" rel="stylesheet"></link>
+  	<link href="/main/css/menu_filtr.css" rel="stylesheet"></link>
+	
+
+</head>
+<body>
+<div class="container">
+
+<?php
+//echo '<br>';
+//echo Sayt::createToGeneral('/users/usersOborud', 'Назад');
+//echo '<br>';
+echo '<br>';
+
+?>
+
+<p>
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+    Добавить новое оборудование
+</button>
+</p>
+<div class="collapse" id="collapseExample1">
+  <div class="card card-body">
+	<?php
+	// print_r($this->modelData['armenuall']);
+	
+		if( empty($this->modelData['oborud']) ) {
+			echo "Добавьте новое оборудование";
+			echo "<br>";
+			if(empty($this->modelData['selectmenu'])) {
+				echo "Необходимо создать меню для размещения в нем оборудования";
+				echo "<form action='/users/adminCreateMenu' type='get' >";
+				echo "<button type='submit' >Перейти к созданию меню</button>";
+				echo "</form>";
+				
+			}elseif(empty($this->modelData['selecttip']) ) {
+				echo "Необходимо создать типы оборудования";
+				echo "<form action='/users/adminEditPribor' type='get' >";
+				echo "<button type='submit' >Перейти к созданию типов оборудования</button>";
+				echo "</form>";
+			}else{
+				echo "<form name='formusersOborud' action='/users/usersOborud' type='get' >";
+				echo "<br>Выберите пункт меню для оборудования";
+				echo "<br>";
+				echo $this->modelData['selectmenu'];
+				echo '<br>';
+				echo '<br>';
+				echo 'Выберите тип оборудования';
+				echo '<br>';
+				echo $this->modelData['selecttip'];
+				echo '<br>';
+                echo '<div name="getparam">';
+                echo '</div>';
+                echo '</form>';
+			}
+
+			//"проверка на наличие типов оборудования и параметров оборудования";
+			//tip oborud
+			//menu oborud
+		}else {
+				//parametri oborud
+				//echo '<br><button type="submit" name="pribortip" value="' . $param['nom'] . '" >' . $param['name'] . '</button>';
+		}
+	?>
+  </div>
+</div>
+
+<form action="/users/editBrowsePriborParam" type="get">
+
+	<?php
+		if(!empty($this->modelData['err']['ar'])){
+			foreach($this->modelData['err']['ar'] as $ar=>$ind){
+				echo "<br><button type='submit' name='browsepriborparam' value='" . $ind . "' >" . $this->modelData['err']['name'][$ar] . "</button>";
+			}
+			print_r( $this->modelData['err']); 
+			print_r($this->modelData['priborparam2']);
+		}
+		
+	?>
+
+</form>
+
+<p>
+<button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+Настройки
+</button>
+</p>
+<div class="collapse" id="collapseExample2">
+  <div class="card card-body">
+    <p>
+    <form action="/users/adminCreateMenu" method="get">
+    <input class="btn btn-outline-secondary" type="submit" value="Редактировать МЕНЮ">
+    </form>
+    <p>
+    <form action="/users/adminEditPribor" method="get">
+    <input class="btn btn-outline-secondary" type="submit" value="Добавить оборудование">
+    </form>
+    <p>
+    <form action="/users/adminEditParam" method="get">
+    <input class="btn btn-outline-secondary" type="submit" value="Добавить параметры для оборудования">
+    </form>
+
+    
+    
+  </div>
+</div>
+<br>
+<form action="/users/usersOborud" method="get">
+	<button type="submit" name="filtrOborud" class="btn btn-danger" >Обзор всего оборудования</button>
+</form>
+<br>
+
+<p>
+<button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+    Открыть фильтр для отбора оборудования
+</button>
+</p>
+<div class="collapse" id="collapseExample3">
+  <div class="card card-body">
+  
+<div class="divFiltr" >
+
+	<?php
+	//<label for="favorite_team">Любимая команда:</label><input type="text" name="team" id="favorite_team" list="team_list">
+	//<datalist id="team_list">  <option>Бавария</option>  <option>Бенфика</option>  <option>Боруссия</option>  <option>Брюгге</option></datalist>
+	//print_r($this->modelData['filtroborud']);
+
+	$ar_text[1][1] = 'Введите текст';
+	$ar_text[2][2] = 'Введите дату';
+	$ar_text[2][20] = 'Дата от';
+	$ar_text[2][200] = 'Дата до';
+	$ar_text[3][3] = '';
+	$ar_text[4][4] = 'Введите число';
+	$ar_text[4][40] = 'Число от';
+	$ar_text[4][400] = 'Число до';
+	$ar_text[5][5] = '';
+	
+		if(!empty($this->modelData['filtroborud'])){
+			$ar_table = [];
+			foreach($this->modelData['filtroborud'] as $kod_param=>$data){
+				//$data['field_type']
+				$count_all = ($data['count_all'] == 0) ? " disabled " : "";
+				//arsort($kod_param['ar']);
+				$name = $data['name'];
+				$type = $data['type'];
+				
+				if ($type == 1){
+					$ar_table[$kod_param][1] = $name;
+					$ar_table[$kod_param][2] = "<input type='text' id='selectparam$kod_param' name='selectparam$kod_param' list='id_$name' $count_all >";
+					$ar_table[$kod_param][3] = '';
+					$ar_table[$kod_param][4] = '';
+					$ar_table[$kod_param][5] = "<input type='checkbox' name='selectnullparam$kod_param' tt='selectparam$kod_param' onclick='checknull(this, $kod_param);' >";
+					$ar_table[$kod_param][6] = 'Проверка нулевого значения';
+				}
+				elseif ($type == 3 || $type == 5 ) {
+					$ar_table[$kod_param][1] = $name;
+					$ar_table[$kod_param][2] = "<input type='checkbox' name='selectnullparam$kod_param' >";
+					$ar_table[$kod_param][3] = '';
+					$ar_table[$kod_param][4] = 'Поиск нулевого значения! Требует разделения по типу на 3 и 5!!!';
+					$ar_table[$kod_param][5] = '';
+					$ar_table[$kod_param][6] = '';
+					continue;
+				}
+				if($type == 2 || $type == 4 ){
+					$ar_table[$kod_param][1] = $name;
+					$ar_table[$kod_param][2] = "<input type='text' id='selectparam$kod_param' name='selectparam$kod_param' list='id_$name' $count_all > 
+					<br><input type='text' id='selectdivparam$kod_param' name='selectdivparam$kod_param' list='id_$name' $count_all class='hidden' >";
+					$ar_table[$kod_param][3] = "<input type='checkbox' id='checkdivparam$kod_param' name='checkdivparam$kod_param' onclick='checkdiv(this, $kod_param);' >";
+					$ar_table[$kod_param][4] = 'Возможность ввести диапазон данных';
+					$ar_table[$kod_param][5] = "<input type='checkbox' name='selectnullparam$kod_param' tt='selectparam$kod_param' onclick='checknull(this, $kod_param);' >";
+					$ar_table[$kod_param][6] = 'Поиск пустого значения';
+				}
+				$input = "<datalist id='id_$name'>";
+				foreach($data['ar'] as $val => $count){
+					$input = $input . "<option value='$val'>$val - $count шт.</option>";
+				}
+				$ar_table[$kod_param][2] = $ar_table[$kod_param][2] . $input . "</datalist>";
+			}
+			
+			$str_table = '<table name="table_filtr">';
+			foreach($ar_table as $ind => $data){
+				$str_table = $str_table . '<tr>';
+				for($i=1; $i <= 6; $i = $i + 1){
+					$str_table = $str_table . "<td name='stolbec$i' >" . $data[$i] . '</td>';
+				}
+				$str_table = $str_table . '</tr>';
+			}
+			$str_table = $str_table . '</table>';
+            echo '<form action="/users/usersOborud" method="get">';
+			echo $str_table;
+            echo '<br><button type="submit" name="filtrOborud" value="1" >Применить фильтр</button>';
+            echo '</form>';
+		} else {
+            echo 'Не доступны данные для создания фильтра оборудования!';
+        }
+	?>
+
+</div>
+
+</div>
+</div>
+
+<div class="divBrowse">
+	<?php
+	//print_r($this->modelData['browseoborud']);
+		if(!empty($this->modelData['browseoborud']['field'])){//Формирует очередность полей можно добавить сортировку полей по количеству записей через COUNT_NOM и второй массив
+			foreach($this->modelData['browseoborud']['field'] as $ind => $row){
+				$ar_field['all_param']['id_menu'] = '';
+				$ar_field['all_param']['kod_tip'] = '';
+				$ar_field['all_param']['kod_oborud'] = '';
+				$ar_field['all_param'][$row['nom']] = '';
+				$ar_field['name_field']['id_menu'] = '<th>Меню оборудования</th>';
+				$ar_field['name_field']['kod_tip'] = '<th>Тип оборудования</th>';
+				$ar_field['name_field']['kod_oborud'] = '<th>Код оборудования</th>';
+				$ar_field['name_field'][$row['nom']] = '<th>' . $row['name'] . '</th>';
+			}
+			
+			// print_r($ar_field);
+		}
+		
+		if(!empty($this->modelData['browseoborud']['data']) && !empty($ar_field) ){
+			//print_r($this->modelData['browseoborud']);
+			$ar_table = [];
+			foreach($this->modelData['browseoborud']['data'] as $row => $data){
+				if(empty($ar_table[$data['kod_oborud']])) $ar_table[$data['kod_oborud']] = $ar_field['all_param'];
+				$ar_table[$data['kod_oborud']]['id_menu'] = $this->modelData['armenuall'][$data['id_menu']]['select'];
+				//$ar_table[$data['kod_oborud']]['id_menu'] = $data['id_menu'];
+				$ar_table[$data['kod_oborud']]['kod_tip'] = $this->modelData['artipall'][$data['kod_tip']]['name'];
+				$ar_table[$data['kod_oborud']]['kod_oborud'] = $data['kod_oborud'];
+				$ar_table[$data['kod_oborud']][$data['kod_param']] = $data[$data['field_oborud']];
+				if ($data['field_type'] == 2 ) $ar_table[$data['kod_oborud']][$data['kod_param']] = (new Model)->createDataFromMYSQL($data[$data['field_oborud']]);
+			}
+			
+			$str_table = '<table name="browseoborud"><tr>' . implode('',$ar_field['name_field']) . '</tr>';
+			
+			foreach($ar_table as $kod => $ar){
+				//$str_table = $str_table . "<th>" .$name . "</th></tr>";
+				$str_table = $str_table . "<tr name='row'  >";
+				foreach($ar as $field => $val){
+
+					$str_table = $str_table . "<td name='stolbec$field' kod_oborud='$kod' ondblclick='getTextTd(this);'   >" . $val . '</td>';
+
+				}
+				$str_table = $str_table . "</tr>";
+			}
+			$str_table = $str_table . '</table>';
+			echo $str_table;
+			//print_r($ar_table);
+		} else {
+			echo "Нет данных для отображения!!!";
+		}
+
+		
+		
+	?>
+
+
+
+</div>
+
+
+<br>
+
+
+<form action="/users/exit" method="get" >
+	<button type='submit' >Выход</button>
+</form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body">
+			</div>
+			<div class="modal-ajax-response">
+			</div>
+			<div class="modal-ajax-response2">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+				<button type="button" class="btn btn-primary" onclick="ajaxEditParam();">Сохранить изменения</button>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+</div>
+</body>
+</html>

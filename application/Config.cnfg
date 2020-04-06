@@ -1,0 +1,6 @@
+<?php
+$db = ['dbName' => 'baza',
+			 'dbServer' => 'localhost',
+			 'dbUser' => 'root',
+			 'dbPass' => '',
+			];

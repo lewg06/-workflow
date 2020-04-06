@@ -1,0 +1,23 @@
+
+body {background: yellow;}
+
+table {background: Cyan;}
+table[name='browseoborud'] td {border: 2px dotted white;}
+table[name='table_filtr'] td {padding: 1%;}
+table[name='table_filtr'] td {border-bottom: 2px dotted white;}
+table[name='ajaxoborud']{max-width: 100%;}
+table[name='ajaxoborud'] td {max-width:300px;}
+
+
+td[name=stolbec3]{max-width: 50px; }
+td[name=stolbec4]{max-width: 100px; }
+td[name=stolbec5]{max-width: 30px; }
+td[name=stolbec6]{max-width: 140px; }
+
+input[name*="param" ]{margin: 2px;}
+.hidden {display: none;}
+.block {display: block;}
+select[name='editparamoborudidmenu']{max-width: 298px;}
+
+
+

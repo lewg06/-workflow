@@ -1,0 +1,43 @@
+<?php
+	//print_r($this->modelData['paramoborud']);
+	//print_r($this->modelData['allparam']);
+	if( empty($this->modelData['allparam']) || empty($this->modelData['paramoborud']) ){
+		echo 'Ошибка получения данных по данному оборудованию!!!';
+		return;
+	}
+	$kod_oborud = reset($this->modelData['paramoborud'])['kod_oborud'];
+	echo '<table name="ajaxoborud">';
+	echo "<input type='text' name='editparamoborudkodoborud' disabled value='$kod_oborud' >";
+	echo '<tr><td>Тип оборудования: </td><td>' . $this->modelData['nametip'] . '</td></tr>';
+	echo '<tr><td>Меню оборудования: </td><td>' . $this->modelData['selectmenutip'] . '</td></tr>';
+	foreach($this->modelData['allparam'] as $param => $row){
+		$tip_field = $row['kod_tip_field'];
+
+		if(array_key_exists($param,$this->modelData['paramoborud'])){
+			if ($this->modelData['allparam'][$param]['kod_tip_field'] == 2 ){
+				$value = (new Model)->createDataFromMYSQL($this->modelData['paramoborud'][$param][$row['field_oborud']]);
+			}
+			else {
+				$value = $this->modelData['paramoborud'][$param][$row['field_oborud']];
+			}
+		}
+		else {
+			$value = '';
+		}
+		$name_param = $row['name'];
+		
+		//if ($tip_field === 1){
+			echo "<tr><td>$name_param</td><td><input type='text' name='editparamoborud$param' value='$value' ></td></tr>";
+		//}
+		
+	}
+	echo '</table>';	
+		
+		
+		
+
+		
+
+		
+
+?>
